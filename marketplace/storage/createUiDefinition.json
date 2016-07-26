@@ -7,7 +7,7 @@
         "name": "storageAccountNamePrefix",
         "type": "Microsoft.Common.TextBox",
         "label": "Name prefix for new storage account",
-        "toolTip": "Name prefix for new storage account. For ex. \"foo\" will produce a storage name like \"fooz4qffew4jf6bu\"",
+        "toolTip": "Name prefix for new storage account. For ex. \"foo\" will produce a unique storage name like \"fooz4qffew4jf6bu\"",
         "defaultValue": "",
         "constraints": {
           "required": true,
