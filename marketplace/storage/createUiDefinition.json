@@ -1,78 +1,82 @@
 {
-    "handler": "Microsoft.Compute.MultiVm",
-    "version": "0.0.1-preview",
-    "parameters": {
-        "basics": [
-            {
-                "name": "storageAccountNamePrefix",
-                "type": "Microsoft.Common.TextBox",
-                "label": "Storage Account Name Prefix",
-                "defaultValue": "",
-                "constraints": {
-                    "required": true,
-                    "regex": "^[a-z0-9]{1,10}$",
-                    "validationMessage": "Only letters and numbers are allowed, and the value must be 1-10 characters long."
-                }
-            },
-            {
-              "name": "sshKeyData",
-              "type": "Microsoft.Compute.CredentialsCombo",
-              "label": {
-                "authenticationType": "Authentication type",
-                "password": "Password",
-                "confirmPassword": "Confirm password",
-                "sshPublicKey": "SSH public key"
-              },
-              "toolTip": {
-                "authenticationType": "",
-                "password": "",
-                "sshPublicKey": ""
-              },
-              "constraints": {
-                "required": true
-              },
-              "options": {
-                "hideConfirmation": true,
-                "hidePassword": true
-              },
-              "osPlatform": "Linux"
-            },
-            {
- 
-                "name": "servicePrincipal",
-                "type": "Microsoft.Common.FileUpload",
-                "label": "Service Principal",
-                "toolTip": "",
-                "constraints": {
-                    "required": true,
-                    "accept": ".txt"
-                },
-                "options": {
-                    "multiple": false,
-                    "uploadMode": "file",
-                    "openMode": "text",
-                    "encoding": "UTF-8"
-                }
-            },
-            {
-                "name": "pivnetAPIToken",
-                "type": "Microsoft.Common.TextBox",
-                "label": "Pivotal Network Token",
-                "defaultValue": "",
-                "constraints": {
-                    "required": true
-                }
-            }
-        ],
-        "steps": [],
-        "outputs": {
-            "storageAccountNamePrefixString": "[basics('storageAccountNamePrefix')]",
-            "adminSSHKey": "[basics('sshKeyData').sshPublicKey]",
-            "tenantID": "[basics('tenantID')]",
-            "clientID": "[basics('clientID')]",
-            "clientSecret": "[basics('clientSecret')]",
-            "pivnetAPIToken": "[basics('pivnetAPIToken')]",
-            "location": "[location()]"
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [
+      {
+        "name": "storageAccountNamePrefix",
+        "type": "Microsoft.Common.TextBox",
+        "label": "Name prefix for new storage account",
+        "toolTip": "Name prefix for new storage account. For ex. \"foo\" will produce a storage name like \"fooz4qffew4jf6bu\"",
+        "defaultValue": "",
+        "constraints": {
+          "required": true,
+          "regex": "^[a-z0-9]{1,10}$",
+          "validationMessage": "Only letters and numbers are allowed, and the value must be 1-10 characters long."
         }
+      },
+      {
+        "name": "storageAccountType",
+        "type": "Microsoft.Common.DropDown",
+        "label": "Storage account type",
+        "defaultValue": "Standard_LRS",
+        "toolTip": "Premium or Standard storage types",
+        "constraints": {
+          "required": true,
+          "allowedValues": [
+            {
+              "label": "Standard_LRS",
+              "value": "Standard_LRS"
+            },
+            {
+              "label": "Standard_GRS",
+              "value": "Standard_GRS"
+            },
+            {
+              "label": "Standard_ZRS",
+              "value": "Standard_ZRS"
+            },
+            {
+              "label": "Premium_LRS",
+              "value": "Premium_LRS"
+            }
+          ]
+        }
+      },
+      {
+        "name": "storageAccount",
+        "type": "Microsoft.Storage.MultiStorageAccountCombo",
+        "label": {
+          "prefix": "Storage account prefix",
+          "type": "Storage account type"
+        },
+        "toolTip": {
+          "prefix": "Storage account for the database VMs, only new storage account is supported",
+          "type": "Premium or Standard storage types"
+        },
+        "defaultValue": {
+          "prefix": "change_me_to_be_unique",
+          "type": "Standard_LRS"
+        },
+        "constraints": {
+          "allowedTypes": [
+            "Standard_LRS",
+            "Standard_GRS",
+            "Standard_ZRS",
+            "Premium_LRS"
+          ],
+          "count": 1,
+          "required": true
+        }
+      }
+    ],
+    "steps": [],
+    "outputs": {
+      "storageAccountNamePrefix": "[basics('storageAccountNamePrefix')]",
+      "storageAccountType": "[basics('storageAccountType')]",
+      "storageAccount_prefix": "[basics('storageAccount').prefix]",
+      "storageAccount_type": "[basics('storageAccount').type]",
+      "location": "[location()]"
     }
+  }
 }
