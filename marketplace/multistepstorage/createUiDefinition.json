@@ -9,7 +9,7 @@
         "name": "storageConfig",
         "label": "Storage account settings",
         "subLabel": {
-          "preValidation": "Configure the storage account",
+          "preValidation": "Configure new storage account",
           "postValidation": "Done"
         },
         "bladeTitle": "Storage account settings",
