@@ -1,0 +1,65 @@
+{
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [
+    ],
+    "steps": [
+      {
+        "name": "storageConfig",
+        "label": "Storage account settings",
+        "subLabel": {
+          "preValidation": "Configure the storage account",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Storage account settings",
+        "elements": [
+          {
+            "name": "storageAccountNamePrefix",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Name prefix for new storage account",
+            "toolTip": "Name prefix for new storage account. For ex. \"foo\" will produce a unique storage name like \"fooz4qffew4jf6bu\"",
+            "defaultValue": "",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9]{1,10}$",
+              "validationMessage": "Only letters and numbers are allowed, and the value must be 1-10 characters long."
+            }
+          },
+          {
+            "name": "storageAccountType",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Storage account type",
+            "defaultValue": "Standard_LRS",
+            "toolTip": "Premium or Standard storage types",
+            "constraints": {
+              "required": true,
+              "allowedValues": [
+                {
+                  "label": "Standard_LRS",
+                  "value": "Standard_LRS"
+                },
+                {
+                  "label": "Standard_GRS",
+                  "value": "Standard_GRS"
+                },
+                {
+                  "label": "Standard_ZRS",
+                  "value": "Standard_ZRS"
+                },
+                {
+                  "label": "Premium_LRS",
+                  "value": "Premium_LRS"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "storageAccountNamePrefix": "[steps('storageConfig').storageAccountNamePrefix]",
+      "storageAccountType": "[steps('storageConfig').storageAccountType]"
+    }
+  }
+}
