@@ -42,41 +42,12 @@
             }
           ]
         }
-      },
-      {
-        "name": "storageAccount",
-        "type": "Microsoft.Storage.MultiStorageAccountCombo",
-        "label": {
-          "prefix": "Storage account prefix",
-          "type": "Storage account type"
-        },
-        "toolTip": {
-          "prefix": "Storage account for the database VMs, only new storage account is supported",
-          "type": "Premium or Standard storage types"
-        },
-        "defaultValue": {
-          "prefix": "change_me_to_be_unique",
-          "type": "Standard_LRS"
-        },
-        "constraints": {
-          "allowedTypes": [
-            "Standard_LRS",
-            "Standard_GRS",
-            "Standard_ZRS",
-            "Premium_LRS"
-          ],
-          "count": 1,
-          "required": true
-        }
       }
     ],
     "steps": [],
     "outputs": {
       "storageAccountNamePrefix": "[basics('storageAccountNamePrefix')]",
-      "storageAccountType": "[basics('storageAccountType')]",
-      "storageAccount_prefix": "[basics('storageAccount').prefix]",
-      "storageAccount_type": "[basics('storageAccount').type]",
-      "location": "[location()]"
+      "storageAccountType": "[basics('storageAccountType')]"
     }
   }
 }
