@@ -46,7 +46,7 @@
       "value": "[variables('storageAccountName')]"
     },
     "storageAccountKey": {
-      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview')]",
+      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1]",
       "type": "object"
     }
   }
