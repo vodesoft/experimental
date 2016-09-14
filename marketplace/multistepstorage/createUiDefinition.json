@@ -3,7 +3,6 @@
   "version": "0.0.1-preview",
   "parameters": {
     "basics": [
-        "bladeTitle": "My blade"
     ],
     "steps": [
       {
